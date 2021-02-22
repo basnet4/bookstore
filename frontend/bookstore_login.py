@@ -5,6 +5,7 @@ import tkinter as tkr
 from tkinter import *
 from PIL import Image, ImageTk
 import tkinter.messagebox
+import frontend.bookstore_signup
 
 
 class bookstorelogin:
@@ -82,7 +83,9 @@ class bookstorelogin:
                 return
 
         def sign_up():
-            tkinter.messagebox.showinfo("login", "signup..")
+            tk = Toplevel()
+            root.withdraw()
+            frontend.bookstore_signup.bookstoresignup(tk)
 
         def iexit():
             iexit = tkinter.messagebox.askyesno("Book Store Login", "Are you sure want to exit.")
