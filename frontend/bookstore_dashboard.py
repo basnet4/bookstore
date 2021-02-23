@@ -11,7 +11,8 @@ class Bookstore:
         self.root = root
         self.root.title("Welcome to Book Store Management System")
         self.root.geometry("1366x778+0+0")
-        self.root.iconbitmap("frontend\\Picture\Icons\Icon.ico")
+        # self.root.configure(background='#1A333A')
+        self.root.iconbitmap("frontend\\Picture\\Icons\\Icon.ico")
 
         self.image = Image.open("frontend\\Picture\Picture2.jpg")
         self.photo = ImageTk.PhotoImage(self.image)
@@ -25,8 +26,8 @@ class Bookstore:
         # ****************************************************
         def done(firstname, surname, address, mobile_num, email, date, Booktitle, price, quantity, discountount):
             if len(firstname) != 0 and len(surname) != 0 and len(address) != 0 and len(mobile_num) != 0 and len(
-                    email) != 0 and len(date) != 0 and len(Booktitle) != 0 and len(price) != 0 and len(
-                    quantity) != 0 and len(discountount) != 0:
+                    email) != 0 and len(date) != 0 and len(Booktitle) != 0 and len(price) != 0 and \
+                    len(quantity) != 0 and len(discountount) != 0:
                 tkinter.messagebox.showinfo("Book Store Management System", "Data Stored.")
                 return
             elif (len(firstname) == 0):
@@ -125,6 +126,7 @@ class Bookstore:
             if i_exit > 0:
                 root.destroy()
                 return
+
 
         # *******************************COMMAND END****************************
         # *********************************************************************
@@ -419,12 +421,381 @@ class Bookstore:
                      'FIVE POINT SOMEONE', 'GAME OF THRONES', 'THE GIRL IN ROOM 105',
                      'HALF GIRLFRIEND', 'INDIA AFTER GANDHI', 'INTO THE WILD', 'JIWAN KADA KI FUL', 'KARNALI BLUES',
                      'LORD OF THE RING', 'MALORIE', 'MASSACRE AT THE PALACE',
-                     'MAYUR TIMES', 'MUNA MADAN', 'ONE NIGHT AT CALL CENTRE', 'PALPASA CAFE', 'PRAYOGSALA',
-                     'SAAYA', 'SETO DHARTI', 'SHRISH KO FUL', 'STEVE JOBS', 'SUMMER LOVE', 'THE ONLY GOOD INDIANS',
-                     'THE RETURN OF THE KING', 'THE UNSPOKEN NAME',
-                     'THE WINDS OF WINTER', 'TWO STATES']
+                     'MAYUR TIMES', 'MUNA MADAN', 'ONE NIGHT AT CALL CENTRE', 'PALPASA CAFE', 'PRAYOGSALA'
+            , 'SAAYA', 'SETO DHARTI', 'SHRISH KO FUL', 'STEVE JOBS', 'SUMMER LOVE', 'THE ONLY GOOD INDIANS',
+                     'THE RETURN OF THE KING', 'THE UNSPOKEN NAME'
+            , 'THE WINDS OF WINTER', 'TWO STATES']
 
+        def selectedbook(evt):
+            value = str(booklist.get(booklist.curselection()))
+            w = value
+            if (w == "A CLASH OF KINGS"):
+                booktitle.set("A CLASH OF KING")
+                author.set("GEORGE R. R. MARTIN")
+                ISBN.set("0-553-10803-4 (US Hardback)")
+                genre.set("FANTASY")
+                releasedate.set("November 16, 1998")
+                bookprice.set("1000.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\A Clash of king.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
 
+            elif (w == "A DREAM OF SPRING"):
+                booktitle.set("A DREAM OF SPRING")
+                author.set("GEORGE R. R. MARTIN")
+                ISBN.set("0-553-102343-4")
+                genre.set("FANTASY")
+                releasedate.set("! NOT AVAILABILE")
+                bookprice.set("980.00")
+                availability.set("!NOT AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\A dream of spring.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "ARRESTTING GOD IN KTM"):
+                booktitle.set("ARRESTTING GOD IN KATHMANDU")
+                author.set("SAMRAT UPADHYAY")
+                ISBN.set("9780618043712")
+                genre.set("FICTION")
+                releasedate.set("2001")
+                bookprice.set("350.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\Arresting god in ktm.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "CHINA HARAYEKO MANCHE"):
+                booktitle.set("CHINA HARAYEKO MANCHE")
+                author.set("HARI BANSHA ACHARYA")
+                ISBN.set("9937866642")
+                genre.set("BIOGRAPHY")
+                releasedate.set("APRIL 2013")
+                bookprice.set("285.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\China harayeko manche.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "FIVE POINT SOMEONE"):
+                booktitle.set("FIVE POINT SOMEONE")
+                author.set("CHETAN BHAGAT")
+                ISBN.set("81-291-0459-8")
+                genre.set("FICTION")
+                releasedate.set("4 AUGUST 2004")
+                bookprice.set("350.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\Five Point Someone.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "GAME OF THRONES"):
+                booktitle.set("GAME OF THRONES")
+                author.set("GEORGE R. R. MARTIN")
+                ISBN.set("0-553-10354-7 (US hardback)")
+                genre.set("FANTASY")
+                releasedate.set("AUGUST 1, 1996")
+                bookprice.set("1010.00")
+                availability.set("!NOT AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\Game of throness.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "THE GIRL IN ROOM 105"):
+                booktitle.set("THE GIRL IN ROOM 105")
+                author.set("CHETAN BHAGAT")
+                ISBN.set("978-1542040464")
+                genre.set("MYSTERY, THRILLER")
+                releasedate.set("OCTOBER 9, 2018")
+                bookprice.set("385.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\Girl in room.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "HALF GIRLFRIEND"):
+                booktitle.set("HALF GIRLFRIEND")
+                author.set("CHETAN BHAGAT")
+                ISBN.set("978-81-291-3572-8")
+                genre.set("FICTION, ROMANCE")
+                releasedate.set("1 OCTOBER, 2014")
+                bookprice.set("375.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\Half girlfiend.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "INDIA AFTER GANDHI"):
+                booktitle.set("INDIA AFTER GANDHI")
+                author.set("RAMCHANDRA GUHA")
+                ISBN.set("978-0-330-50554-3")
+                genre.set("NON-FICTION")
+                releasedate.set("24 JULY, 2007")
+                bookprice.set("1200.00")
+                availability.set("!NOT AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\India After gandi.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "INTO THE WILD"):
+                booktitle.set("INTO THE WILD")
+                author.set("JON KRAKAUER")
+                ISBN.set("0-679-42850-X")
+                genre.set("BIOGRAPHY")
+                releasedate.set("1996")
+                bookprice.set("800.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\Into the wild.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "JIWAN KADA KI FUL"):
+                booktitle.set("JIWAN KADA KI FUL")
+                author.set("JHAMAK KUMAR GHIMIRE")
+                ISBN.set("978-9-93-722347-8")
+                genre.set("BIOGRAPHY")
+                releasedate.set("2010")
+                bookprice.set("250.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\Jiwan Kanda Ki Phool.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "KARNALI BLUES"):
+                booktitle.set("KARNALI BLUES")
+                author.set("BUDDHI SAGAR")
+                ISBN.set("9789937827935")
+                genre.set("NOVEL, CONTEMPORARY FICTION")
+                releasedate.set("2010")
+                bookprice.set("350.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\Karnali blues.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "LORD OF THE RING"):
+                booktitle.set("LORD OF THE RINGS")
+                author.set("J. R. R. TOLKIEN")
+                ISBN.set("PR6039.032 L67 1954, vol.1")
+                genre.set("FANTASY, ADVENTURE")
+                releasedate.set("29 JULY 1954")
+                bookprice.set("1200.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\Lord of the rings.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "MALORIE"):
+                booktitle.set("MALORIE")
+                author.set("JOSH MALERMAN")
+                ISBN.set("9780593156858")
+                genre.set("HORROR, SCI-FICTION, THRILLER")
+                releasedate.set("JUL 21, 2020")
+                bookprice.set("700.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\Malorie.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "MASSACRE AT THE PALACE"):
+                booktitle.set("MASSACRE AT THE PALACE")
+                author.set("JONATHAN GREGSON")
+                ISBN.set("978-0786868780")
+                genre.set("HISTORY")
+                releasedate.set("JUNE 5, 2002")
+                bookprice.set("600.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\Massacre at the palace.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "MAYUR TIMES"):
+                booktitle.set("MAYUR TIMES")
+                author.set("NARAYAN WAGLE")
+                ISBN.set("9789937829007")
+                genre.set("NOVEL, FICTION")
+                releasedate.set("2010")
+                bookprice.set("400.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\Mayur Times.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "MUNA MADAN"):
+                booktitle.set("MUNA MADAN")
+                author.set("LAXMI PRASAD DEVKOTA")
+                ISBN.set("! NOT AVAILABLE")
+                genre.set("EPIC POETRY")
+                releasedate.set("! NOT AVAILABLE")
+                bookprice.set("200.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\Muna madan.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "ONE NIGHT AT CALL CENTRE"):
+                booktitle.set("ONE NIGHT @ CALL CENTRE")
+                author.set("CHETAN BHAGAT")
+                ISBN.set("81-291-0818-6 (Paperback edition)")
+                genre.set("FICTION")
+                releasedate.set("OCTOBER 5, 2005")
+                bookprice.set("400.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\One night at call centre.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "PALPASA CAFE"):
+                booktitle.set("PALPASA CAFE")
+                author.set("NARAYAN WAGLE")
+                ISBN.set("978-9-93-780210-9")
+                genre.set("NOVEL, FICTION")
+                releasedate.set("2005")
+                bookprice.set("330.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\Palpasa cafe.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "PRAYOGSALA"):
+                booktitle.set("PRAYOGSALA")
+                author.set("SUDHEER BAHADUR SHARMA")
+                ISBN.set("9789937878906")
+                genre.set("HISTORY")
+                releasedate.set("2013")
+                bookprice.set("360.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\Prayogsala.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "SAAYA"):
+                booktitle.set("SAAYA")
+                author.set("SUBIN BHATTARAI")
+                ISBN.set("9789937887779")
+                genre.set("ROMANCE NOVEL")
+                releasedate.set("2014")
+                bookprice.set("250.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\Saya.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "SETO DHARTI"):
+                booktitle.set("SETO DHARTI")
+                author.set("AMAR NEUPANE")
+                ISBN.set("978-9937-8563-4-8")
+                genre.set("FICTION")
+                releasedate.set("MARCH 2012")
+                bookprice.set("385.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\Seto dharti.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "SHRISH KO FUL"):
+                booktitle.set("SHRISHKO FUL")
+                author.set("PARIJAT")
+                ISBN.set("9993340995")
+                genre.set("NOVEL")
+                releasedate.set("1964")
+                bookprice.set("200.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\Srish ko ful.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "STEVE JOBS"):
+                booktitle.set("STEVE JOBS")
+                author.set("WALTER ISAACSON")
+                ISBN.set("1-4516-4853-7")
+                genre.set("BIOGRAPHY")
+                releasedate.set("OCTOBER 24, 2011")
+                bookprice.set("900.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\Steve jobs.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "SUMMER LOVE"):
+                booktitle.set("SUMMER LOVE")
+                author.set("SUBIN BHATTARAI")
+                ISBN.set("9789937856386")
+                genre.set("LOVE STORY, NOVEL")
+                releasedate.set("2012")
+                bookprice.set("250.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\Summer love.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "THE ONLY GOOD INDIANS"):
+                booktitle.set("THE ONLY GOOD INDIANS")
+                author.set("STEPHEN GRAHAM JONES")
+                ISBN.set("9781982136475")
+                genre.set("THILLER, HORROR")
+                releasedate.set("JULY 14, 2020")
+                bookprice.set("900.00")
+                availability.set("! NOT AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\The only good indians.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "THE RETURN OF THE KING"):
+                booktitle.set("THE RETURN OF THE KING")
+                author.set("J. R. R. TOLKIEN")
+                ISBN.set("PR6039.O32 L6 1954, v.3")
+                genre.set("FANTASY")
+                releasedate.set("20 OCTOBER 1955")
+                bookprice.set("870.00")
+                availability.set("!NOT AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\The return of the king.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "THE UNSPOKEN NAME"):
+                booktitle.set("THE UNSPOKEN NAME")
+                author.set("A.K. LARKWOOD")
+                ISBN.set("1250238900")
+                genre.set("FANTASY,SCI-FI")
+                releasedate.set("11 FEB 2020")
+                bookprice.set("950.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\The unspoken name.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "THE WINDS OF WINTER"):
+                booktitle.set("THE WINDS OF WINTER")
+                author.set("GEORGE R. R. MARTIN")
+                ISBN.set("----------")
+                genre.set("EPIC FANTASY")
+                releasedate.set("----")
+                bookprice.set("1100.00")
+                availability.set("!NOT AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\TheWindsofWinter.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+            elif (w == "TWO STATES"):
+                booktitle.set("2 STATES")
+                author.set("CHETAN BHAGAT")
+                ISBN.set("978-81-291-1530-0")
+                genre.set("FICTION, ROMANCE")
+                releasedate.set("OCTOBER 8, 2009")
+                bookprice.set("400.00")
+                availability.set("AVAILABLE")
+                self.image = PhotoImage(file="frontend\\Picture\Book PNGs\Two States.png")
+                lbl = Label(bookdetail, image=self.image)
+                lbl.place(x=95, y=10)
+
+        booklist = Listbox(bookframe, bg="black", fg="#079296", width=28, height=26, font=('times', 9, 'bold'))
+        booklist.bind('<<ListboxSelect>>', selectedbook)
+        booklist.grid(row=0, column=0, padx=2)
+        scrollbar.config(command=booklist.yview)
+
+        for items in ListOfBox:
+            booklist.insert(END, items)
 
         # ************************BUTTON*****************************
         self.btnsearch = Button(root, image=self.Search_icon, text='      Search ', font=('times', 10, 'bold'),
@@ -432,24 +803,24 @@ class Bookstore:
                                 command=lambda: Search_Btn(self.txtsearch.get()))
         self.btnsearch.place(x=1199, y=99, width=110)
 
-        self.btnsignup = Button(root, text='Done', font=('times', 10, 'bold'), bg="#5cb85c", fg="white", width=7, bd=2,
-                                relief=GROOVE, command=lambda: done(self.txtfirstname.get(),
-                                                                    self.txtsurname.get(), self.txtaddress.get(),
-                                                                    self.txtmobile_no.get(), self.txtemail.get(),
-                                                                    self.txt_date.get(), self.txt_Booktitle.get(),
-                                                                    self.txtPrice.get(), self.txtqty.get(),
-                                                                    self.txtdiscountount.get()))
-        self.btnsignup.place(x=150, y=610)
+        self.btn_done = Button(root, text='Done', font=('times', 10, 'bold'), bg="#5cb85c", fg="white", width=7, bd=2,
+                               relief=GROOVE, command=lambda: done(self.txtfirstname.get(),
+                                                                   self.txtsurname.get(), self.txtaddress.get(),
+                                                                   self.txtmobile_no.get(), self.txtemail.get(),
+                                                                   self.txt_date.get(), self.txt_Booktitle.get()
+                                                                   , self.txtPrice.get(), self.txtqty.get(),
+                                                                   self.txtdiscountount.get()))
+        self.btn_done.place(x=150, y=610)
 
-        self.btnsignup = Button(root, text='Clear', font=('times', 10, 'bold'), bg="#db2020", fg="white", width=7, bd=2,
+        self.btn_clear = Button(root, text='Clear', font=('times', 10, 'bold'), bg="#db2020", fg="white", width=7, bd=2,
                                 relief=GROOVE, command=iclear)
-        self.btnsignup.place(x=290, y=610)
+        self.btn_clear.place(x=290, y=610)
 
-        self.btnsignup = Button(bookdetail, text='Reset', font=('times', 10, 'bold'), bg="#db2020", fg="white", width=7,
+        self.btn_reset = Button(bookdetail, text='Reset', font=('times', 10, 'bold'), bg="#db2020", fg="white", width=7,
                                 bd=2, relief=GROOVE, command=ireset)
-        self.btnsignup.place(x=200, y=460)
+        self.btn_reset.place(x=200, y=460)
 
-        self.btnsignup = Button(bookdetail, image=self.Add_icon, text='Add Book', font=('times', 10, 'bold'),
-                                compound=LEFT, bg="#5cb85c", fg="white", width=70, height=18, bd=2, relief=GROOVE,
-                                command=bookadd)
-        self.btnsignup.place(x=60, y=460)
+        self.btn_add = Button(bookdetail, image=self.Add_icon, text='Add Book', font=('times', 10, 'bold'),
+                              compound=LEFT, bg="#5cb85c", fg="white", width=70, height=18, bd=2, relief=GROOVE,
+                              command=bookadd)
+        self.btn_add.place(x=60, y=460)

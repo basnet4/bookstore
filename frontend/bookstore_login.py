@@ -6,7 +6,7 @@ from tkinter import *
 from PIL import Image, ImageTk
 import tkinter.messagebox
 import frontend.bookstore_signup
-
+import frontend.bookstore_dashboard
 
 class bookstorelogin:
     def __init__(self, root):
@@ -67,7 +67,8 @@ class bookstorelogin:
                 if username == "Admin" and password == "Admin":
                     root.destroy()
                     mixer.music.fadeout(3000)
-                    tkinter.messagebox.showinfo("login", "dashboard")
+                    tk = Tk()
+                    frontend.bookstore_dashboard.Bookstore(tk)
                     return
                 else:
                     tkinter.messagebox.showerror("Book Store Login", "Invalid username or password!")
