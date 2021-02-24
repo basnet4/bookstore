@@ -5,6 +5,8 @@ from PIL import Image, ImageTk
 from tkinter import ttk
 import tkinter as tkr
 import tkinter.messagebox
+import model.user
+import backend.db_connection
 import frontend.bookstore_login
 
 
@@ -16,6 +18,7 @@ class bookstoresignup:
         self.root.title("Bookstore Signup ")
         self.root.configure(background='white')
         self.root.resizable(0, 0)
+        self.db = backend.db_connection.DBConnect()
 
         self.image = Image.open("frontend\\Picture\\signup_1.jpg")
         self.photo = ImageTk.PhotoImage(self.image)
@@ -23,7 +26,7 @@ class bookstoresignup:
         lbl.place(x=-30, y=0)
 
         Title = Label(self.root, text="  Bookstore Signup  ",
-                      font=("comforta", 20, "bold"), compound=RIGHT, bg="#18435C", fg="white")
+                      font=("comforta", 20, "bold"), compound=RIGHT, bg="#292325", fg="white")
         Title.place(x=338, y=10)
 
         # *******************************FRAME*****************************
@@ -87,15 +90,15 @@ class bookstoresignup:
         self.lblmembertype.place(x=15, y=210)
 
         self.cbo_day = ttk.Combobox(info_frame, font=('times', 10, 'bold'), state='readonly', width=3)
-        self.cbo_day['value'] = (
-            'Day', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18',
+        self.cbo_day['value'] = ('Day', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14',
+                                 '15', '16', '17', '18',
             '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31')
         self.cbo_day.current(0)
         self.cbo_day.place(x=15, y=240)
 
         self.cbo_mon = ttk.Combobox(info_frame, font=('times', 10, 'bold'), state='readonly', width=5)
-        self.cbo_mon['value'] = (
-            'Month', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec')
+        self.cbo_mon['value'] = ('Month', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept',
+                                 'Oct', 'Nov', 'Dec')
         self.cbo_mon.current(0)
         self.cbo_mon.place(x=70, y=240)
 
@@ -164,6 +167,14 @@ class bookstoresignup:
             self.cbo_gen.focus()
             return
         else:
+            u = model.user.User(firstname, surname, username, password, mobile, dob, gender)
+
+            query = "insert into sign_up(first_name, sur_name, user_name, pass_word, mob_no, d_ob, gen_der) values " \
+                    "(%s, %s, %s, %s, %s, %s, %s) "
+            values = (u.get_firstname(), u.get_surname(), u.get_username(), u.get_password(), u.get_mobile(),
+                      u.get_dob(), u.get_gender())
+
+            self.db.insert(query, values)
             tkinter.messagebox.showinfo('Bookstore Sign up', 'Successfully  Signed up.')
             self.root.destroy()
             tk = Toplevel()

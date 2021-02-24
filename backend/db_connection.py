@@ -14,3 +14,9 @@ class DBConnect:
         self.cur.execute(query, values)
         info = self.cur.fetchall()
         return info
+
+    def __del__(self):
+        if self.cur:
+            self.cur.close()
+        if self.con:
+            self.con.close()
