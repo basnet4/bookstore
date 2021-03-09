@@ -5,18 +5,22 @@ import tkinter as tkr
 from tkinter import *
 from PIL import Image, ImageTk
 import tkinter.messagebox
+import frontend.update_pass
 import frontend.bookstore_signup
 import frontend.bookstore_dashboard
+import backend.db_connection
+
 
 class bookstorelogin:
     def __init__(self, root):
         self.root = root
         self.root.geometry("620x430+450+150")
         self.root.iconbitmap("frontend\\Picture\\Icons\\Icon.ico")
-        self.root.title("Book Store Login ")
+        self.root.title("Bookstore Login ")
         self.root.configure(background='white')
         self.root.resizable(0, 0)
 
+        self.db = backend.db_connection.DBConnect()
         self.image = Image.open("frontend\\Picture\\login_1.jpg")
         self.photo = ImageTk.PhotoImage(self.image)
         lbl = Label(self.root, image=self.photo)
@@ -28,7 +32,7 @@ class bookstorelogin:
         self.exit_icon = PhotoImage(file="frontend\\Picture\\Icons\\Exit.png")
 
         Title = Label(self.root, text="   Bookstore Login   ",
-                      font=("comforta", 20, "bold"), compound=RIGHT, bg="#301406", fg="white")
+                      font=("comforta", 20, "bold"), compound=RIGHT, bg="#1A333A", fg="white")
         Title.place(x=339, y=10)
 
         # ************************Clock***********************************
@@ -62,41 +66,23 @@ class bookstorelogin:
         unpause_button.place(x=40, y=400)
 
         # ***********************COMMAND**********************************
-        def authenticate(username, password):
-            if len(username) != 0 and len(password) != 0:
-                if username == "Admin" and password == "Admin":
-                    root.destroy()
-                    mixer.music.fadeout(3000)
-                    tk = Tk()
-                    frontend.bookstore_dashboard.Bookstore(tk)
-                    return
-                else:
-                    tkinter.messagebox.showerror("Book Store Login", "Invalid username or password!")
-                    self.txtPassword.focus()
-                    return
-            elif len(username) == 0:
-                tkinter.messagebox.showerror("Book Store Login", "Please enter username!")
-                self.txtusername.focus()
-                return
-            else:
-                tkinter.messagebox.showerror("Book Store Login", "Please enter password!")
-                self.txtPassword.focus()
-                return
 
         def sign_up():
+            self.root.withdraw()
             tk = Toplevel()
-            root.withdraw()
             frontend.bookstore_signup.bookstoresignup(tk)
+            return
 
         def iexit():
-            iexit = tkinter.messagebox.askyesno("Book Store Login", "Are you sure want to exit.")
+            iexit = tkinter.messagebox.askyesno("Bookstore Login", "Are you sure want to exit.")
             if iexit > 0:
+                pygame.mixer.music.fadeout(1000)
                 root.quit()
                 return
 
         def f_password():
-            tkinter.messagebox.showinfo("Book Store Login",
-                                        "Change your Username and Password manually in code.")
+            tk = Toplevel()
+            frontend.update_pass.UP_pass(tk)
             return
 
         # ************************************FRAME**********************************
@@ -127,14 +113,51 @@ class bookstorelogin:
 
         self.btn_login = Button(root, text='Log In', font=('times', 10, 'bold'), bg="#5cb85c", fg="white", width=7,
                                 bd=2, relief=GROOVE,
-                                command=lambda: authenticate(self.txtusername.get(), self.txtPassword.get()))
-        self.root.bind("<Return>", lambda event: authenticate(self.txtusername.get(), self.txtPassword.get()))
+                                command=lambda: self.authenticate())
+        self.root.bind("<Return>", lambda event: self.authenticate())
         self.btn_login.place(x=445, y=350)
 
         self.btn_Signup = Button(root, text='Sign Up', font=('times', 10, 'bold'), bg="#2b83b2", fg="white", width=7,
                                  bd=2, relief=GROOVE, command=sign_up)
         self.btn_Signup.place(x=350, y=350)
 
-        self.btn_Forgot = Button(login_frame, font=('times', 8), text="Forgotten your username or password?:", bd=0,
+        self.btn_Forgot = Button(login_frame, font=('times', 8), text="Forgotten your password?:", bd=0,
                                  bg="white", fg="blue", command=f_password)
         self.btn_Forgot.place(x=20, y=85)
+
+    # *********************AUTHENTICATION FUNCTION**************************
+
+    def authenticate(self):
+        u_name = self.txtusername.get()
+        p_word = self.txtPassword.get()
+
+        if u_name == '':
+            tkinter.messagebox.showerror("Bookstore Login Error", "Please enter username!")
+            self.txtusername.focus()
+            return
+        elif p_word == '':
+            tkinter.messagebox.showerror("Bookstore Login Error", "Please enter password!")
+            self.txtPassword.focus()
+            return
+        else:
+            query = "select * from sign_up where user_name=%s and pass_word=%s"
+            values = (u_name, p_word)
+            rows = self.db.select(query, values)
+            data = []
+
+            if len(rows) != 0:
+                for row in rows:
+                    data.append(row[0])
+                    data.append(row[1])
+                    data.append(row[2])
+                    data.append(row[3])
+                print(data)
+                if u_name == data[2] and p_word == data[3]:
+                    self.root.withdraw()
+                    tk = Toplevel()
+                    frontend.bookstore_dashboard.Bookstore(tk)
+
+                else:
+                    tkinter.messagebox.showerror("Bookstore Login Error", "!!! Invalid Username or password !!!")
+            else:
+                tkinter.messagebox.showinfo("Bookstore Login", "!!! User not registered !!!")

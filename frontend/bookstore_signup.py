@@ -46,6 +46,8 @@ class bookstoresignup:
         def Play():
             pygame.mixer.music.play()
 
+        # **************************BUTTON*******************************
+
         play_button = tkr.Button(root, image=self.Stop_icon, command=Stop)
         play_button.place(x=10, y=400)
 
@@ -57,7 +59,7 @@ class bookstoresignup:
         self.root.bind("<Return>", lambda event: self.signup())
         self.btnsignup.place(x=445, y=390)
 
-        # ************************WIDGET****************************************
+        # ************************SIGNUP**WIDGET**********************************
 
         self.lblfirstname = Label(info_frame, font=('times', 10, 'bold'), text="First name:", bg="white", fg="black")
         self.lblfirstname.place(x=15, y=10)
@@ -92,7 +94,7 @@ class bookstoresignup:
         self.cbo_day = ttk.Combobox(info_frame, font=('times', 10, 'bold'), state='readonly', width=3)
         self.cbo_day['value'] = ('Day', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14',
                                  '15', '16', '17', '18',
-            '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31')
+                                 '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31')
         self.cbo_day.current(0)
         self.cbo_day.place(x=15, y=240)
 
@@ -105,9 +107,8 @@ class bookstoresignup:
         self.cbo_year = ttk.Combobox(info_frame, font=('times', 10, 'bold'), state='readonly', width=7)
         self.cbo_year['value'] = ('Year', '1990', '1991', '1992', '1993', '1994', '1995', '1996', '1997', '1998',
                                   '1999', '2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008',
-                                  '2009', '2010',
-                                  '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020',
-                                  '2021')
+                                  '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018',
+                                  '2019', '2020', '2021')
         self.cbo_year.current(0)
         self.cbo_year.place(x=140, y=240)
 
