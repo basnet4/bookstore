@@ -4,10 +4,10 @@ from tkinter import Menu
 from PIL import Image, ImageTk
 import tkinter.messagebox
 import frontend.delete_user
+import frontend.add_book
 
 
 class Bookstore:
-
     def __init__(self, root):
         self.root = root
         self.root.title("Welcome to Book Store Management System")
@@ -20,60 +20,68 @@ class Bookstore:
         lbl = Label(self.root, image=self.photo)
         lbl.pack(pady=0, padx=0)
 
-        self.Add_icon = PhotoImage(file="frontend\\Picture\Icons\Add.png")
-
         # *********************COMMAND************************
         # ****************************************************
-        def done(firstname, surname, address, mobile_num, email, date, Booktitle, price, quantity, discountount):
-            if len(firstname) != 0 and len(surname) != 0 and len(address) != 0 and len(mobile_num) != 0 and len(
-                    email) != 0 and len(date) != 0 and len(Booktitle) != 0 and len(price) != 0 and \
-                    len(quantity) != 0 and len(discountount) != 0:
-                tkinter.messagebox.showinfo("Book Store Management System", "Data Stored.")
+        def done():
+            title = self.cboTitle.get()
+            firstname = self.txtfirstname.get()
+            surname = self.txtsurname.get()
+            address = self.txtaddress.get()
+            mobile_num = self.txtmobile_no.get()
+            email = self.txtemail.get()
+            date = self.txt_date.get()
+            Booktitle = self.txt_Booktitle.get()
+            price = self.txtPrice.get()
+            quantity = self.txtqty.get()
+            discount = self.txtdiscount.get()
+
+            if title == '':
+                tkinter.messagebox.showerror("Book Store Management System ", "Please enter Title!")
+                self.cboTitle.focus()
                 return
-            elif (len(firstname) == 0):
+            elif firstname == '':
                 tkinter.messagebox.showerror("Book Store Management System ", "Please enter firstname!")
                 self.txtfirstname.focus()
                 return
-            elif (len(surname) == 0):
+            elif surname == '':
                 tkinter.messagebox.showerror("Book Store Management System ", "Please enter surname!")
                 self.txtsurname.focus()
                 return
-            elif (len(address) == 0):
+            elif address == '':
                 tkinter.messagebox.showerror("Book Store Management System ", "Please enter address!")
                 self.txtaddress.focus()
                 return
-            elif (len(mobile_num) == 0):
+            elif mobile_num == '':
                 tkinter.messagebox.showerror("Book Store Management System ", "Please enter mobile number!")
                 self.txtmobile_no.focus()
                 return
-            elif (len(email) == 0):
+            elif email == '':
                 tkinter.messagebox.showerror("Book Store Management System ", "Please enter email!")
                 self.txtemail.focus()
                 return
-            elif (len(date) == 0):
+            elif date == '':
                 tkinter.messagebox.showerror("Book Store Management System ", "Please enter today's date!")
                 self.txt_date.focus()
                 return
-            elif (len(Booktitle) == 0):
+            elif Booktitle == '':
                 tkinter.messagebox.showerror("Book Store Management System ", "Please enter book name!")
                 self.txt_Booktitle.focus()
                 return
-            elif (len(price) == 0):
+            elif price == '':
                 tkinter.messagebox.showerror("Book Store Management System ", "Please enter book price!")
                 self.txtPrice.focus()
                 return
-            elif (len(quantity) == 0):
+            elif quantity == '':
                 tkinter.messagebox.showerror("Book Store Management System ", "Please enter quantity!")
                 self.txtqty.focus()
                 return
-            else:
+            elif discount == '':
                 tkinter.messagebox.showerror("Book Store Management System ", "Please enter discountount!")
                 self.txtdiscount.focus()
                 return
-
-        def bookadd():
-            tkinter.messagebox.showinfo("Book Store Management System ", "Book Added Successfully.")
-            return
+            else:
+                tkinter.messagebox.showinfo("Book Store Management System", "Data Stored.")
+                return
 
         # *****************FOR BOOK DETAIL***********************
         booktitle = StringVar()
@@ -125,8 +133,13 @@ class Bookstore:
         def i_exit():
             i_exit = tkinter.messagebox.askyesno("Book Store Management System", "Are you sure want to exit.")
             if i_exit > 0:
-                root.destroy()
+                root.quit()
                 return
+
+        def book_add():
+            tk = Toplevel()
+            frontend.add_book.AddBook(tk)
+            return
 
         def d_user():
             tk = Toplevel()
@@ -141,6 +154,7 @@ class Bookstore:
         self.file_new_item.add_command(label='Edit System Profile')
         self.file_new_item.add_command(label='Delete User', command=lambda: d_user())
         self.file_new_item.add_command(label="Exit", command=i_exit)
+        self.root.bind("<Escape>", lambda event: i_exit())
         self.menu.add_cascade(label='File', menu=self.file_new_item)
 
         self.vendor_new_item = Menu(self.menu)
@@ -150,7 +164,7 @@ class Bookstore:
 
         self.book_new_item = Menu(self.menu)
         self.book_new_item.add_command(label='Books Available')
-        self.book_new_item.add_command(label='Add Book')
+        self.book_new_item.add_command(label='Add Book', command=lambda: book_add())
         self.menu.add_cascade(label='Books', menu=self.book_new_item)
 
         self.customer_new_item = Menu(self.menu)
@@ -355,7 +369,7 @@ class Bookstore:
         self.txtqty = Entry(c_detail, textvariable=quantity)
         self.txtqty.place(x=120, y=380, width=162)
 
-        self.lbldiscount = Label(c_detail, font=('times', 10, 'bold'), text="discount       :", bg="black",
+        self.lbldiscount = Label(c_detail, font=('times', 10, 'bold'), text="Discount      :", bg="black",
                                  fg="white")
         self.lbldiscount.place(x=20, y=420)
         self.txtdiscount = Entry(c_detail, textvariable=discountount)
@@ -402,7 +416,42 @@ class Bookstore:
         self.txtavailable = Entry(bookdetail, textvariable=availability)
         self.txtavailable.place(x=120, y=410, width=162)
 
-        # ************************SEARCH****************************
+        # *************************SORTING ALGORITHM*********************
+        # *************************BUBBLE SORT***************************
+        def sort(b_lst):
+            for i in range(len(b_lst) - 1, 0, -1):
+                for j in range(i):
+                    if b_lst[j] > b_lst[j + 1]:
+                        temp = b_lst[j]
+                        b_lst[j] = b_lst[j + 1]
+                        b_lst[j + 1] = temp
+
+        b_lst = ['CHINA HARAYEKO MANCHE', 'FIVE POINT SOMEONE', 'GAME OF THRONES', 'THE GIRL IN ROOM 105',
+                 'INTO THE WILD', 'KARNALI BLUES', 'LORD OF THE RING', 'MALORIE', 'ARRESTTING GOD IN KTM',
+                 'PALPASA CAFE', 'PRAYOGSALA', 'SAAYA', 'SETO DHARTI', 'SHRISH KO FUL', 'THE ONLY GOOD INDIANS',
+                 'THE RETURN OF THE KING', 'THE UNSPOKEN NAME', 'MASSACRE AT THE PALACE', 'HALF GIRLFRIEND',
+                 'MAYUR TIMES', 'THE WINDS OF WINTER', 'TWO STATES', 'A CLASH OF KINGS',
+                 'A DREAM OF SPRING', 'JIWAN KADA KI FUL', 'SUMMER LOVE', 'MUNA MADAN', 'ONE NIGHT AT CALL CENTRE',
+                 'INDIA AFTER GANDHI', 'STEVE JOBS']
+
+        sort(b_lst)
+
+        # *************************BOOK LISTBOX************************
+
+        scrollbar = Scrollbar(bookframe)
+        scrollbar.grid(row=0, column=1, sticky='ns')
+
+        ListOfBox = b_lst
+
+        booklist = Listbox(bookframe, bg="black", fg="#079296", width=28, height=26, font=('times', 9, 'bold'))
+        booklist.grid(row=0, column=0, padx=2)
+        scrollbar.config(command=booklist.yview)
+
+        for items in ListOfBox:
+            booklist.insert(END, items)
+
+        # ************************SEARCHING ALGORITHM****************************
+        # ***************************LINEAR SEARCH*******************************
         def Search_Btn(lst, search):
             if search != '':
                 isFound = False
@@ -771,7 +820,7 @@ class Bookstore:
                         self.P_lbl = Label(bookdetail, image=self.image)
                         self.P_lbl.place(x=95, y=10)
                 else:
-                    tkinter.messagebox.showerror("Error", "Book not found !")
+                    tkinter.messagebox.showerror("Error", "NOTE:Use UPPERCASE only \nBook not found !")
                     self.txtsearch.focus()
             else:
                 tkinter.messagebox.showerror("Error", "Please enter book name !")
@@ -783,27 +832,6 @@ class Bookstore:
                                textvariable=search)
         self.txtsearch.place(x=975, y=100, width=215)
 
-        # *************************BOOK LISTBOX************************
-
-        scrollbar = Scrollbar(bookframe)
-        scrollbar.grid(row=0, column=1, sticky='ns')
-
-        ListOfBox = ['A CLASH OF KINGS', 'A DREAM OF SPRING', 'ARRESTTING GOD IN KTM', 'CHINA HARAYEKO MANCHE',
-                     'FIVE POINT SOMEONE', 'GAME OF THRONES', 'THE GIRL IN ROOM 105',
-                     'HALF GIRLFRIEND', 'INDIA AFTER GANDHI', 'INTO THE WILD', 'JIWAN KADA KI FUL', 'KARNALI BLUES',
-                     'LORD OF THE RING', 'MALORIE', 'MASSACRE AT THE PALACE',
-                     'MAYUR TIMES', 'MUNA MADAN', 'ONE NIGHT AT CALL CENTRE', 'PALPASA CAFE', 'PRAYOGSALA',
-                     'SAAYA', 'SETO DHARTI', 'SHRISH KO FUL', 'STEVE JOBS', 'SUMMER LOVE', 'THE ONLY GOOD INDIANS',
-                     'THE RETURN OF THE KING', 'THE UNSPOKEN NAME',
-                     'THE WINDS OF WINTER', 'TWO STATES']
-
-        booklist = Listbox(bookframe, bg="black", fg="#079296", width=28, height=26, font=('times', 9, 'bold'))
-        booklist.grid(row=0, column=0, padx=2)
-        scrollbar.config(command=booklist.yview)
-
-        for items in ListOfBox:
-            booklist.insert(END, items)
-
         # ************************BUTTON*****************************
         self.btnsearch = Button(root, image=self.Search_icon, text='      Search ', font=('times', 10, 'bold'),
                                 bg="#10b5e5", compound=LEFT, fg="black", height=13, width=7, bd=2, relief=GROOVE,
@@ -812,12 +840,7 @@ class Bookstore:
         self.root.bind("<Return>", lambda event: Search_Btn(ListOfBox, self.txtsearch.get()))
 
         self.btn_done = Button(c_detail, text='Done', font=('times', 10, 'bold'), bg="#5cb85c", fg="white", width=7,
-                               bd=2, relief=GROOVE, command=lambda: done(self.txtfirstname.get(),
-                                                                         self.txtsurname.get(), self.txtaddress.get(),
-                                                                         self.txtmobile_no.get(), self.txtemail.get(),
-                                                                         self.txt_date.get(), self.txt_Booktitle.get(),
-                                                                         self.txtPrice.get(), self.txtqty.get(),
-                                                                         self.txtdiscount.get()))
+                               bd=2, relief=GROOVE, command=lambda: done())
         self.btn_done.place(x=80, y=490)
 
         self.btn_clear = Button(c_detail, text='Clear', font=('times', 10, 'bold'), bg="#db2020", fg="white", width=7,
@@ -826,9 +849,4 @@ class Bookstore:
 
         self.btn_reset = Button(bookdetail, text='Reset', font=('times', 10, 'bold'), bg="#db2020", fg="white", width=7,
                                 bd=2, relief=GROOVE, command=ireset)
-        self.btn_reset.place(x=200, y=460)
-
-        self.btn_add = Button(bookdetail, image=self.Add_icon, text='Add Book', font=('times', 10, 'bold'),
-                              compound=LEFT, bg="#5cb85c", fg="white", width=70, height=18, bd=2, relief=GROOVE,
-                              command=bookadd)
-        self.btn_add.place(x=60, y=460)
+        self.btn_reset.place(x=130, y=460)

@@ -7,7 +7,6 @@ class Book:
         self.__release_date = release_date
         self.__price = price
         self.__availability = availability
-        # self.__image = image
 
     def set_booktitle(self, booktitle):
         self.__booktitle = booktitle

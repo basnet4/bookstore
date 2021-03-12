@@ -9,14 +9,29 @@ class DBConnect:
     def insert(self, query, values):
         self.cur.execute(query, values)
         self.con.commit()
+        return self.cur.rowcount
 
     def select(self, query, values):
         self.cur.execute(query, values)
         info = self.cur.fetchall()
         return info
 
-    def __del__(self):
-        if self.cur:
-            self.cur.close()
-        if self.con:
-            self.con.close()
+    def update(self, query, values):
+        self.cur.execute(query, values)
+        self.con.commit()
+        return self.cur.rowcount
+
+    def delete(self, query, values):
+        self.cur.execute(query, values)
+        self.con.commit()
+
+    def fetch(self, query):
+        self.cur.execute(query)
+        rows = self.cur.fetchone()
+        return rows
+
+    # def __del__(self):
+    #     if self.cur:
+    #         self.cur.close()
+    #     if self.con:
+    #         self.con.close()

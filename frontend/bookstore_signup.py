@@ -125,7 +125,7 @@ class bookstoresignup:
             iexit = tkinter.messagebox.askyesno("Book Store Login", "Are you sure want to exit.")
             if iexit > 0:
                 pygame.mixer.music.fadeout(1000)
-                root.destroy()
+                root.quit()
                 return
 
         self.root.bind("<Escape>", lambda event: s_exit())
